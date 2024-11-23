@@ -2,7 +2,7 @@
 
 Welcome to the WhiteBoxMedia Company Portfolio! This project is built using the latest technologies including Next.js, Tailwind CSS, and React.js to provide a modern, fast, and customizable portfolio solution.
 
-![Portfolio Demo](https://github.com/your-username/company-portfolio-nextjs-tailwind-css/raw/main/demo.png)
+[Portfolio Demo](https://github.com/Relaxkartikey/WBM-nextjs-tailwind-portfolio?tab=readme-ov-file)
 
 ## 🚀 Features
 
