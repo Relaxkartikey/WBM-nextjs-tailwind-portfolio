@@ -1,11 +1,11 @@
 // Home.tsx
-import AboutSection from "@/components/AboutSection";
+import AboutSection from "@/components/Services";
 import HeroSection from "@/components/HeroSection";
-import ProjectsSection from "@/components/ProjectsSection";
 import Overview from "@/components/Overview"; // Importing Overview Section
 import Testimonials from "@/components/users";
-import Contact from "@/components/contact";
-import EventWorksSection from "@/components/ProjectsSection";
+import EventWorksSection from "@/components/Work";
+import TeamSection from "@/components/team";
+import ProcessSection from "@/components/process";
 
 export default function Home() {
   return (
@@ -13,10 +13,11 @@ export default function Home() {
       <HeroSection />
       <div className="mx-auto max-w-3xl px-4 sm:px-6 md:max-w-5xl">
         <AboutSection />
+        <ProcessSection />
         <Overview />
         <Testimonials />
         <EventWorksSection />
-        <Contact />
+        <TeamSection />
       </div>
     </main>
   );

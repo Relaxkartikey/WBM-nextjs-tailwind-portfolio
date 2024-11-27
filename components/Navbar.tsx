@@ -1,27 +1,34 @@
 "use client";
 import React, { useState } from "react";
-import { Link } from "react-scroll";
+import { Link as ScrollLink } from "react-scroll"; // For section navigation
+import Link from "next/link"; // For page navigation
 import { IoMdMenu, IoMdClose, IoMdArrowDropdown } from "react-icons/io";
 
 interface NavItem {
   label: string;
-  page: string;
+  href?: string; // For page navigation
+  section?: string; // For section navigation (id)
   subItems?: Array<NavItem>;
 }
 
 const NAV_ITEMS: Array<NavItem> = [
-  { label: "Home", page: "home" },
-  { label: "Services", page: "about" },
-  { label: "Work", page: "work" },
   {
-    label: "About",
-    page: "about2",
+    label: "Home",
+    href: "/",
   },
-  { label: "Contact", page: "contact" },
+  { label: "Team", href: "team" },
+  { label: "FAQ", href: "faq" },
+  { label: "Contact", href: "contact" },
 ];
 
 export default function Navbar() {
   const [navbar, setNavbar] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null); // Track the open dropdown
+
+  // Toggle the dropdown visibility
+  const handleDropdownToggle = (label: string) => {
+    setOpenDropdown((prev) => (prev === label ? null : label)); // Close if the same is clicked again
+  };
 
   return (
     <header className="w-full mx-auto px-4 sm:px-20 fixed top-0 z-50 bg-black shadow-lg shadow-white/20">
@@ -29,10 +36,15 @@ export default function Navbar() {
         {/* Logo */}
         <div>
           <div className="flex items-center justify-between py-3 md:py-5 md:block">
-            <Link to="home">
+            <Link href="/">
               <div className="container flex items-center space-x-2">
                 <img src="/logo.svg" alt="WhiteBox Logo" className="w-10 h-10" />
-                <span className="text-white font-bold" style={{ fontFamily: 'Oswald, sans-serif' }}>WhiteBoxMedia.</span>
+                <span
+                  className="text-white font-bold"
+                  style={{ fontFamily: "Oswald, sans-serif" }}
+                >
+                  WhiteBoxMedia.
+                </span>
               </div>
             </Link>
             <div className="md:hidden">
@@ -54,37 +66,52 @@ export default function Navbar() {
         >
           <div className="items-center justify-end space-y-8 md:flex md:space-x-6 md:space-y-0">
             {NAV_ITEMS.map((item, idx) => (
-              <div key={idx} className="relative group">
-                <Link
-                  to={item.page}
-                  className="block lg:inline-block text-white hover:text-gray-300 cursor-pointer"
-                  activeClass="active"
-                  spy={true}
-                  smooth={true}
-                  offset={-100}
-                  duration={500}
-                  onClick={() => {
-                    if (!item.subItems) {
-                      setNavbar(!navbar);
-                    }
-                  }}
-                >
-                  {item.label}
-                  {item.subItems && <IoMdArrowDropdown className="inline ml-1" />}
-                </Link>
-                {item.subItems && (
-                  <div className="absolute left-0 mt-2 w-48 bg-black text-white rounded-md shadow-lg z-10 hidden group-hover:block group-hover:md:block">
+              <div
+                key={idx}
+                className="relative group"
+                onClick={() => item.subItems && handleDropdownToggle(item.label)}
+              >
+                {item.section ? (
+                  // Section navigation (scroll to the section)
+                  <ScrollLink
+                    to={item.section}
+                    className="block lg:inline-block text-white hover:text-gray-300 cursor-pointer"
+                    activeClass="active"
+                    spy={true}
+                    smooth={true}
+                    offset={-100}
+                    duration={500}
+                    onClick={() => setNavbar(false)}
+                  >
+                    {item.label}
+                  </ScrollLink>
+                ) : item.href ? (
+                  // Page navigation (link to other pages)
+                  <Link
+                    href={item.href}
+                    className="block lg:inline-block text-white hover:text-gray-300 relative"
+                    onClick={() => setNavbar(false)}
+                  >
+                    {item.label}
+                    {item.subItems && (
+                      <IoMdArrowDropdown
+                        className={`inline ml-1 transition-transform text-white ${
+                          openDropdown === item.label ? "rotate-180" : ""
+                        }`}
+                      />
+                    )}
+                  </Link>
+                ) : null}
+
+                {/* Dropdown Menu for SubItems */}
+                {item.subItems && openDropdown === item.label && (
+                  <div className="absolute left-0 mt-2 w-48 bg-black text-white rounded-md shadow-lg z-10">
                     {item.subItems.map((subItem, subIdx) => (
                       <Link
                         key={subIdx}
-                        to={subItem.page}
+                        href={subItem.href || "#"} // Ensure href is defined or fallback to #
                         className="block px-4 py-2 hover:bg-gray-700"
-                        activeClass="active"
-                        spy={true}
-                        smooth={true}
-                        offset={-100}
-                        duration={500}
-                        onClick={() => setNavbar(!navbar)}
+                        onClick={() => setNavbar(false)}
                       >
                         {subItem.label}
                       </Link>

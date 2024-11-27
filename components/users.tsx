@@ -1,6 +1,6 @@
 "use client";
-
 import React from "react";
+import { motion } from "framer-motion";
 
 const testimonials = [
   {
@@ -56,60 +56,75 @@ const testimonials = [
 ];
 
 const Testimonials = () => {
-    return (
-      <section id="users" className="py-12 bg-black">
-        <div className="max-w-6xl mx-auto px-6">
-        <h1 className="my-10 text-center font-bold text-4xl">
-        What Our Clients Say?
-        <hr className="w-6 h-1 mx-auto my-4 bg-teal-500 border-0 rounded"></hr>
-      </h1>
-  
-          <div className="relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-black via-transparent to-black z-10"></div>
-            <div className="flex items-center space-x-8 animate-marquee whitespace-nowrap">
-              {testimonials.map((testimonial, index) => (
-                <div
-                  key={index}
-                  className="flex-shrink-0 px-6 py-6 bg-black-800 text-white rounded-lg shadow-lg min-w-[260px] max-w-[300px] h-[200px] flex flex-col justify-center items-center text-center overflow-hidden border border-white"
-                >
-                  <p className="italic text-sm leading-relaxed break-words whitespace-normal">
-                    "{testimonial.statement}"
-                  </p>
-                  <p className="mt-2 text-teal-400 font-bold text-right">
-                    - {testimonial.user}
-                  </p>
-                </div>
-              ))}
-            </div>
+  return (
+    <section id="users" className="py-12 bg-black">
+      <div className="max-w-6xl mx-auto px-6">
+        <motion.h1
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="my-10 text-center font-bold text-4xl text-white"
+        >
+          What Our Clients Say?
+          <hr className="w-6 h-1 mx-auto my-4 bg-teal-500 border-0 rounded" />
+        </motion.h1>
+
+        <div className="relative overflow-hidden">
+          {/* Gradient Background */}
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-black via-transparent to-black z-10"></div>
+
+          {/* Marquee Testimonials */}
+          <div className="flex items-center space-x-8 animate-marquee whitespace-nowrap">
+            {testimonials.map((testimonial, index) => (
+              <motion.div
+                key={index}
+                className="flex-shrink-0 px-6 py-6 bg-black-800 text-white rounded-lg shadow-lg min-w-[260px] max-w-[300px] h-[200px] flex flex-col justify-center items-center text-center overflow-hidden border border-white"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                  delay: index * 0.2,
+                  duration: 0.5,
+                  type: "spring",
+                }}
+              >
+                <p className="italic text-sm leading-relaxed break-words whitespace-normal">
+                  &quot;{testimonial.statement}&quot;
+                </p>
+                <p className="mt-2 text-teal-400 font-bold text-right">
+                  - {testimonial.user}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </div>
-  
-        <style jsx>{`
-          .animate-marquee {
-            display: flex;
-            animation: marquee 15s linear infinite;
+      </div>
+
+      <style jsx>{`
+        .animate-marquee {
+          display: flex;
+          animation: marquee 15s linear infinite;
+        }
+
+        @keyframes marquee {
+          0% {
+            transform: translateX(100%);
           }
-  
-          @keyframes marquee {
-            0% {
-              transform: translateX(100%);
-            }
-            100% {
-              transform: translateX(-100%);
-            }
+          100% {
+            transform: translateX(-100%);
           }
-  
-          /* Ensure text wrapping and center alignment */
-          .whitespace-normal {
-            white-space: normal;
-          }
-  
-          .break-words {
-            word-wrap: break-word;
-          }
-        `}</style>
-      </section>
-    );
-  };
-  
-  export default Testimonials;
+        }
+
+        /* Ensure text wrapping and center alignment */
+        .whitespace-normal {
+          white-space: normal;
+        }
+
+        .break-words {
+          word-wrap: break-word;
+        }
+      `}</style>
+    </section>
+  );
+};
+
+export default Testimonials;

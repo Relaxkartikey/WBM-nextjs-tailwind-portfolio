@@ -10,14 +10,17 @@ const Footer = () => {
   return (
     <footer id="footers" className="bg-black text-gray-200 py-12">
       {/* Address, Pages, and Social Links Section */}
-      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
-        {/* Address Section */}
-        <div>
-          <h3 className="text-xl font-bold mb-4 text-teal-500">Address</h3>
-          <p>WhiteBoxMedia Pvt Ltd</p>
-          <p>123 Event Street</p>
-          <p>New Delhi, India - 110001</p>
-          <p>Email: info@whiteboxmedia.com</p>
+      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Address Section with Logo */}
+        <div className="flex items-start space-x-4">
+          <img src="/logo.svg" alt="WhiteBox Media Logo" className="w-12 h-12" />
+          <div>
+            <h3 className="text-xl font-bold mb-4 text-teal-500">Address</h3>
+            <p>WhiteBoxMedia Pvt Ltd</p>
+            <p>123 Event Street</p>
+            <p>New Delhi, India - 110001</p>
+            <p>Email: info@whiteboxmedia.com</p>
+          </div>
         </div>
 
         {/* Pages Section */}
@@ -25,50 +28,23 @@ const Footer = () => {
           <h3 className="text-xl font-bold mb-4 text-teal-500">Pages</h3>
           <ul className="space-y-2">
             <li>
-              <a href="/about" className="hover:underline">
-                About Us
+              <a href="/contact" className="hover:underline">
+                Home
               </a>
             </li>
             <li>
-              <a href="/services" className="hover:underline">
-                Services
-              </a>
-            </li>
-            <li>
-              <a href="/portfolio" className="hover:underline">
-                Portfolio
+              <a href="/faq" className="hover:underline">
+                FAQs
               </a>
             </li>
             <li>
               <a href="/contact" className="hover:underline">
-                Contact Us
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        {/* More Pages Section */}
-        <div>
-          <h3 className="text-xl font-bold mb-4 text-teal-500">Quick Links</h3>
-          <ul className="space-y-2">
-            <li>
-              <a href="/careers" className="hover:underline">
-                Careers
+                Contact
               </a>
             </li>
             <li>
-              <a href="/blog" className="hover:underline">
-                Blog
-              </a>
-            </li>
-            <li>
-              <a href="/privacy" className="hover:underline">
-                Privacy Policy
-              </a>
-            </li>
-            <li>
-              <a href="/terms" className="hover:underline">
-                Terms & Conditions
+              <a href="/team" className="hover:underline">
+                Our Team
               </a>
             </li>
           </ul>
@@ -108,12 +84,20 @@ const Footer = () => {
 
       {/* Footer Bottom Note */}
       <hr className="w-full h-0.5 mt-8 bg-gray-600 border-0" />
-      <div className="mt-6 text-center text-gray-400 text-sm">
-        <p>
-          © 2024 WhiteBoxMedia. Developed By{" "}
-          <span className="text-teal-500 font-bold">RelaxKartikey</span>.
-        </p>
-      </div>
+<div className="mt-6 text-center text-gray-400 text-sm">
+  <p>
+    © 2024 WhiteBoxMedia. Developed By{" "}
+    <a
+      href="https://linkedin.com/in/relaxkartikey"
+      target="_blank"
+      rel="noreferrer"
+      className="text-teal-500 font-bold"
+    >
+      RelaxKartikey
+    </a>.
+  </p>
+</div>
+
     </footer>
   );
 };
